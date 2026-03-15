@@ -23,7 +23,7 @@ Format your response with these exact section headers (use the emoji + bold labe
 📊 **Boomer Rating:**`;
 
 export default function OkBoomer() {
-  const [inputMode, setInputMode] = useState("text"); // text | url | image
+  const [inputMode, setInputMode] = useState("text");
   const [textInput, setTextInput] = useState("");
   const [urlInput, setUrlInput] = useState("");
   const [imageFile, setImageFile] = useState(null);
@@ -175,10 +175,8 @@ export default function OkBoomer() {
         .l6 { color: #EA4335; }
         .l7 { color: #FBBC05; }
         .l8 { color: #34A853; }
-        .l9 { color: #4285F4; }
       `}</style>
 
-      {/* Header */}
       <header style={{
         background: "#fff",
         borderBottom: "3px solid #e8e8e8",
@@ -214,13 +212,10 @@ export default function OkBoomer() {
         </div>
       </header>
 
-      {/* Main content */}
       <main style={{ maxWidth: "720px", margin: "0 auto", padding: "32px 20px 60px" }}>
 
-        {/* Mode selector - styled like newspaper section tabs */}
         <div style={{
           display: "flex",
-          gap: "0",
           marginBottom: "28px",
           border: "2px solid #1a1a2e",
           overflow: "hidden",
@@ -254,7 +249,6 @@ export default function OkBoomer() {
           ))}
         </div>
 
-        {/* Input area */}
         <div style={{
           background: "#fff",
           border: "2px solid #1a1a2e",
@@ -424,7 +418,6 @@ export default function OkBoomer() {
           )}
         </div>
 
-        {/* Submit button */}
         <button
           onClick={handleSubmit}
           disabled={!canSubmit()}
@@ -442,7 +435,6 @@ export default function OkBoomer() {
             letterSpacing: "2px",
             textTransform: "uppercase",
             boxShadow: canSubmit() ? "4px 4px 0 #1a1a2e" : "none",
-            transform: "none",
             transition: "all 0.1s",
             marginBottom: "32px",
           }}
@@ -452,7 +444,6 @@ export default function OkBoomer() {
           {loading ? "🤔 Asking a Young Person..." : "🔍 Explain This To Me"}
         </button>
 
-        {/* Loading state */}
         {loading && (
           <div style={{
             background: "#fff",
@@ -475,7 +466,6 @@ export default function OkBoomer() {
           </div>
         )}
 
-        {/* Error */}
         {error && (
           <div style={{
             background: "#fff5f5",
@@ -490,7 +480,6 @@ export default function OkBoomer() {
           </div>
         )}
 
-        {/* Response */}
         {response && !loading && (() => {
           const sections = parseResponse(response);
           return (
@@ -604,7 +593,6 @@ export default function OkBoomer() {
           );
         })()}
 
-        {/* Example prompts footer */}
         {!response && !loading && (
           <div style={{
             marginTop: "40px",
