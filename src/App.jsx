@@ -251,9 +251,10 @@ export default function OkBoomer() {
         @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
         .ok-boomer-logo {
           font-family: 'Abril Fatface', 'Times New Roman', serif;
-          font-size: clamp(64px, 13vw, 108px);
-          line-height: 1; letter-spacing: 2px; display: inline-block;
+          font-size: clamp(36px, 10vw, 108px);
+          line-height: 1; letter-spacing: 1px; display: inline-block;
           filter: drop-shadow(3px 3px 0px rgba(0,0,0,0.18));
+          white-space: nowrap;
         }
         .ok-boomer-logo span { display: inline-block; }
         .l1 { color: #4285F4; } .l2 { color: #EA4335; } .l3 { color: #FBBC05; }
@@ -275,7 +276,7 @@ export default function OkBoomer() {
       `}</style>
 
       {/* Header */}
-      <header style={{ background: "#fff", borderBottom: "3px solid #e8e8e8", padding: "28px 24px 20px", textAlign: "center" }}>
+      <header style={{ background: "#fff", borderBottom: "3px solid #e8e8e8", padding: "20px 16px 16px", textAlign: "center" }}>
         <div className="ok-boomer-logo">
           <span className="l1">O</span><span className="l2">k</span>
           <span style={{color:"#ccc",margin:"0 4px",fontSize:"0.6em"}}>·</span>
@@ -284,7 +285,7 @@ export default function OkBoomer() {
         <div style={{ color: "#777", fontSize: "14px", marginTop: "6px", fontFamily: "'Georgia', serif", fontStyle: "italic" }}>
           "No, Grandpa, it's not a virus. Let us explain."
         </div>
-        <div style={{ display: "flex", justifyContent: "center", gap: "20px", marginTop: "10px", fontSize: "11px", color: "#aaa", letterSpacing: "1px", fontFamily: "'Georgia', serif" }}>
+        <div style={{ display: "flex", justifyContent: "center", gap: "12px", marginTop: "10px", fontSize: "10px", color: "#aaa", letterSpacing: "1px", fontFamily: "'Georgia', serif", flexWrap: "wrap" }}>
           <span>✦ MEMES DECODED</span><span>✦ SLANG TRANSLATED</span><span>✦ VIBES EXPLAINED</span>
         </div>
       </header>
