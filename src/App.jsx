@@ -313,23 +313,23 @@ export default function OkBoomer() {
         {/* Daily Meme Banner */}
         <div style={{
           background: "#1a1a2e", border: "2px solid #1a1a2e", borderRadius: "2px",
-          padding: "14px 20px", marginBottom: "24px",
+          padding: "10px 14px", marginBottom: "16px",
           display: "flex", alignItems: "center", justifyContent: "space-between",
-          gap: "12px", flexWrap: "wrap", boxShadow: "3px 3px 0 #e63946",
+          gap: "10px", boxShadow: "3px 3px 0 #e63946",
         }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <span style={{ fontSize: "18px" }}>📅</span>
-            <div>
-              <div style={{ fontSize: "10px", letterSpacing: "2px", color: "#aaa", fontFamily: "'Georgia', serif", textTransform: "uppercase" }}>Meme of the Day</div>
-              <div style={{ color: "#fff", fontFamily: "'Georgia', serif", fontWeight: "bold", fontSize: "15px" }}>"{dailyMeme.label}"</div>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", minWidth: 0 }}>
+            <span style={{ fontSize: "14px", flexShrink: 0 }}>📅</span>
+            <div style={{ minWidth: 0 }}>
+              <span style={{ fontSize: "10px", letterSpacing: "1px", color: "#aaa", fontFamily: "'Georgia', serif", textTransform: "uppercase" }}>Today: </span>
+              <span style={{ color: "#fff", fontFamily: "'Georgia', serif", fontWeight: "bold", fontSize: "13px" }}>"{dailyMeme.label}"</span>
             </div>
           </div>
           <button
             className="daily-meme-btn"
             onClick={() => { setInputMode("text"); setTextInput(dailyMeme.text); setResponse(null); setError(null); }}
-            style={{ background: "#e63946", color: "#fff", border: "none", borderRadius: "2px", padding: "8px 16px", fontFamily: "'Georgia', serif", fontWeight: "bold", fontSize: "12px", cursor: "pointer", letterSpacing: "1px", whiteSpace: "nowrap", transition: "background 0.15s" }}
+            style={{ background: "#e63946", color: "#fff", border: "none", borderRadius: "2px", padding: "6px 12px", fontFamily: "'Georgia', serif", fontWeight: "bold", fontSize: "11px", cursor: "pointer", letterSpacing: "1px", whiteSpace: "nowrap", transition: "background 0.15s", flexShrink: 0 }}
           >
-            Explain This →
+            Explain →
           </button>
         </div>
 
@@ -337,7 +337,7 @@ export default function OkBoomer() {
         <div style={{
           background: elderMode ? "#fff5f5" : "#fff",
           border: `2px solid ${elderMode ? "#e63946" : "#e8e8e8"}`,
-          borderRadius: "2px", padding: "14px 20px", marginBottom: "24px",
+          borderRadius: "2px", padding: "10px 14px", marginBottom: "16px",
           display: "flex", alignItems: "center", justifyContent: "space-between", transition: "all 0.2s",
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
@@ -356,7 +356,7 @@ export default function OkBoomer() {
         </div>
 
         {/* Mode Tabs */}
-        <div style={{ display: "flex", marginBottom: "24px", border: "2px solid #1a1a2e", overflow: "hidden", borderRadius: "2px" }}>
+        <div style={{ display: "flex", marginBottom: "16px", border: "2px solid #1a1a2e", overflow: "hidden", borderRadius: "2px" }}>
           {[
             { id: "text", label: "📝 Type Slang" },
             { id: "url", label: "🔗 Paste a Link" },
