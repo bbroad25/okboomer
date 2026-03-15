@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
+import { useUsageLimit, PaywallMessage, UsageCounter, BMAC_URL } from "./usage.js";
 
 const SMELL_LEVELS = [
   { max: 1,  emoji: "😌", label: "Squeaky Clean",        color: "#34A853", desc: "Totally legit. You can relax." },
@@ -69,6 +70,7 @@ export default function SniffTest() {
   const [dragOver, setDragOver] = useState(false);
   const fileInputRef = useRef(null);
   const abortRef = useRef(null);
+  const { usesLeft, recordUse, isLimited } = useUsageLimit();
 
   const handleImageFile = (file) => {
     if (!file || !file.type.startsWith("image/")) return;
@@ -103,7 +105,7 @@ export default function SniffTest() {
   };
 
   const canSubmit = () => {
-    if (loading || streaming) return false;
+    if (loading || streaming || isLimited) return false;
     if (inputMode === "image") return !!imageBase64;
     return textInput.trim().length > 0;
   };
@@ -129,6 +131,8 @@ export default function SniffTest() {
   const handleSubmit = async () => {
     const messages = buildMessages();
     if (!messages) return;
+    if (isLimited) return;
+    recordUse();
 
     if (abortRef.current) abortRef.current.abort();
     abortRef.current = new AbortController();
@@ -339,11 +343,15 @@ export default function SniffTest() {
         </div>
 
         {/* Submit */}
+        <UsageCounter usesLeft={usesLeft} />
+
+        {isLimited ? <PaywallMessage /> : (
         <button className="sniff-submit" onClick={handleSubmit} disabled={!canSubmit()}
           style={{ width: "100%", padding: "18px", background: canSubmit() ? "#1a1a2e" : "#ccc", color: "#fff", border: "none", borderRadius: "2px", fontSize: "18px", fontFamily: "'Georgia', serif", fontWeight: "bold", cursor: canSubmit() ? "pointer" : "not-allowed", letterSpacing: "2px", textTransform: "uppercase", boxShadow: canSubmit() ? "4px 4px 0 #e63946" : "none", transition: "all 0.1s", marginBottom: "32px" }}
         >
           {loading ? "🔬 Analyzing..." : "👃 Run the Sniff Test"}
         </button>
+        )}
 
         {/* Loading */}
         {loading && (
@@ -434,10 +442,10 @@ export default function SniffTest() {
               )}
 
               {!streaming && (
-                <div style={{ background: "#f5f0e8", padding: "14px 24px", borderTop: "2px solid #1a1a2e", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span style={{ fontSize: "11px", color: "#888", fontStyle: "italic", fontFamily: "'Georgia', serif" }}>
-                    OkBoomer Sniff Test™ — Trust but verify. Mostly just verify.
-                  </span>
+                <div style={{ background: "#f5f0e8", padding: "14px 24px", borderTop: "2px solid #1a1a2e", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "8px" }}>
+                  <a href={BMAC_URL} target="_blank" rel="noopener noreferrer" style={{ fontSize: "11px", color: "#aaa", fontStyle: "italic", fontFamily: "'Georgia', serif", textDecoration: "none" }}>
+                    ☕ Buy me a coffee
+                  </a>
                   <button onClick={resetAll} style={{ background: "none", border: "1px solid #ccc", padding: "6px 14px", fontFamily: "'Georgia', serif", fontSize: "12px", cursor: "pointer", color: "#555", borderRadius: "2px" }}>
                     Sniff Another
                   </button>
