@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback } from "react";
+import { Link } from "react-router-dom";
 
 const DAILY_MEMES = [
   { label: "NPC", text: "NPC" },
@@ -287,6 +288,23 @@ export default function OkBoomer() {
         </div>
         <div style={{ display: "flex", justifyContent: "center", gap: "12px", marginTop: "10px", fontSize: "10px", color: "#aaa", letterSpacing: "1px", fontFamily: "'Georgia', serif", flexWrap: "wrap" }}>
           <span>✦ MEMES DECODED</span><span>✦ SLANG TRANSLATED</span><span>✦ VIBES EXPLAINED</span>
+        </div>
+        <div style={{ marginTop: "14px" }}>
+          <Link to="/sniff" style={{
+            display: "inline-block",
+            background: "#1a1a2e", color: "#fff",
+            fontFamily: "'Georgia', serif", fontSize: "12px",
+            fontWeight: "bold", letterSpacing: "1.5px",
+            padding: "7px 18px", borderRadius: "2px",
+            textDecoration: "none", textTransform: "uppercase",
+            border: "2px solid #1a1a2e",
+            transition: "all 0.15s",
+          }}
+          onMouseEnter={e => { e.target.style.background = "#e63946"; e.target.style.borderColor = "#e63946"; }}
+          onMouseLeave={e => { e.target.style.background = "#1a1a2e"; e.target.style.borderColor = "#1a1a2e"; }}
+          >
+            🔍 Does This Smell Funny? →
+          </Link>
         </div>
       </header>
 
