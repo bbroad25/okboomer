@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { useUsageLimit, PaywallMessage, UsageCounter, BMAC_URL } from "./usage.js";
+import { useUsageLimit, PaywallMessage, UsageCounter, BMAC_URL } from "./usage.jsx";
 
 const SMELL_LEVELS = [
   { max: 1,  emoji: "😌", label: "Squeaky Clean",        color: "#34A853", desc: "Totally legit. You can relax." },
