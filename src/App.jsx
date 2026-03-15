@@ -23,7 +23,7 @@ Format your response with these exact section headers (use the emoji + bold labe
 📊 **Boomer Rating:**`;
 
 export default function OkBoomer() {
-  const [inputMode, setInputMode] = useState("text"); // text | url | image
+  const [inputMode, setInputMode] = useState("text");
   const [textInput, setTextInput] = useState("");
   const [urlInput, setUrlInput] = useState("");
   const [imageFile, setImageFile] = useState(null);
@@ -57,50 +57,44 @@ export default function OkBoomer() {
   const handleDragOver = (e) => { e.preventDefault(); setDragOver(true); };
   const handleDragLeave = () => setDragOver(false);
 
-  const buildMessages = () => {
+  const buildParts = () => {
     if (inputMode === "text") {
-      return [{ role: "user", content: `Please explain this to me: "${textInput}"` }];
+      return [{ text: `Please explain this to me: "${textInput}"` }];
     }
     if (inputMode === "url") {
-      return [{ role: "user", content: `Please explain this internet link/content to me: ${urlInput}` }];
+      return [{ text: `Please explain this internet link/content to me: ${urlInput}` }];
     }
     if (inputMode === "image" && imageBase64) {
-      return [{
-        role: "user",
-        content: [
-          { type: "image", source: { type: "base64", media_type: imageFile.type, data: imageBase64 } },
-          { type: "text", text: "Please explain this meme or image to me. What's going on here?" }
-        ]
-      }];
+      return [
+        { inline_data: { mime_type: imageFile.type, data: imageBase64 } },
+        { text: "Please explain this meme or image to me. What's going on here?" }
+      ];
     }
     return null;
   };
 
   const handleSubmit = async () => {
-    const messages = buildMessages();
-    if (!messages) return;
+    const parts = buildParts();
+    if (!parts) return;
     setLoading(true);
     setError(null);
     setResponse(null);
     try {
-      const apiKey = import.meta.env.VITE_ANTHROPIC_API_KEY;
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": apiKey,
-          "anthropic-version": "2023-06-01",
-          "anthropic-dangerous-direct-browser-access": "true",
-        },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 1000,
-          system: SYSTEM_PROMPT,
-          messages,
-        }),
-      });
+      const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+            contents: [{ role: "user", parts }],
+            generationConfig: { maxOutputTokens: 1000 },
+          }),
+        }
+      );
       const data = await res.json();
-      const text = data.content?.map(b => b.text || "").join("") || "";
+      const text = data.candidates?.[0]?.content?.parts?.map(p => p.text || "").join("") || "";
       setResponse(text);
     } catch (err) {
       setError("Something went sideways. Try again!");
@@ -217,7 +211,7 @@ export default function OkBoomer() {
       {/* Main content */}
       <main style={{ maxWidth: "720px", margin: "0 auto", padding: "32px 20px 60px" }}>
 
-        {/* Mode selector - styled like newspaper section tabs */}
+        {/* Mode selector */}
         <div style={{
           display: "flex",
           gap: "0",
@@ -442,7 +436,6 @@ export default function OkBoomer() {
             letterSpacing: "2px",
             textTransform: "uppercase",
             boxShadow: canSubmit() ? "4px 4px 0 #1a1a2e" : "none",
-            transform: "none",
             transition: "all 0.1s",
             marginBottom: "32px",
           }}
