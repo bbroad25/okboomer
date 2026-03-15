@@ -42,7 +42,7 @@ export function useUsageLimit() {
   return { usesLeft, recordUse, isLimited };
 }
 
-// Paywall wall — shown when limit hit
+// Paywall — shown when limit hit
 export function PaywallMessage() {
   const [copied, setCopied] = useState(false);
 
@@ -86,7 +86,7 @@ export function PaywallMessage() {
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "10px", alignItems: "center" }}>
-        <a
+        
           href={BMAC_URL}
           target="_blank"
           rel="noopener noreferrer"
@@ -151,7 +151,27 @@ export function PaywallMessage() {
   );
 }
 
-// Inline USDC + BMAC buttons for result footers
+// Small usage counter badge
+export function UsageCounter({ usesLeft }) {
+  if (usesLeft >= DAILY_LIMIT) return null;
+  const color = usesLeft <= 1 ? "#e63946" : usesLeft <= 2 ? "#FBBC05" : "#888";
+  return (
+    <div style={{
+      textAlign: "center",
+      fontFamily: "'Georgia', serif",
+      fontSize: "12px",
+      color: color,
+      fontStyle: "italic",
+      marginBottom: "8px",
+    }}>
+      {usesLeft === 1
+        ? "⚠️ Last free use today — buy us a coffee to keep going!"
+        : `${usesLeft} free uses left today`}
+    </div>
+  );
+}
+
+// Inline support buttons for result footers
 export function SupportButtons() {
   const [copied, setCopied] = useState(false);
   const copyAddress = () => {
@@ -171,26 +191,6 @@ export function SupportButtons() {
         style={{ background: "none", border: "none", cursor: "pointer", fontSize: "11px", color: copied ? "#34A853" : "#aaa", fontStyle: "italic", fontFamily: "'Georgia', serif", padding: 0 }}>
         {copied ? "✓ Copied!" : "💵 USDC"}
       </button>
-    </div>
-  );
-}
-
-// Small usage counter badge — shown in the UI while uses remain
-export function UsageCounter({ usesLeft }) {
-  if (usesLeft >= DAILY_LIMIT) return null;
-  const color = usesLeft <= 1 ? "#e63946" : usesLeft <= 2 ? "#FBBC05" : "#888";
-  return (
-    <div style={{
-      textAlign: "center",
-      fontFamily: "'Georgia', serif",
-      fontSize: "12px",
-      color: color,
-      fontStyle: "italic",
-      marginBottom: "8px",
-    }}>
-      {usesLeft === 1
-        ? "⚠️ Last free use today — buy us a coffee to keep going!"
-        : `${usesLeft} free uses left today`}
     </div>
   );
 }
