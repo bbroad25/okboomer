@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { useUsageLimit, PaywallMessage, UsageCounter, SupportButtons } from "./usage.js";
+import { useUsageLimit, PaywallMessage, UsageCounter, SupportButtons } from "./usage.jsx";
 
 const DAILY_MEMES = [
   { label: "NPC", text: "NPC" },
