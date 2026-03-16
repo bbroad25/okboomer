@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { useUsageLimit, PaywallMessage, UsageCounter, SupportButtons } from "./usage.jsx";
+import { useUsageLimit, PaywallMessage, UsageCounter, SupportButtons, ShareButton } from "./usage.jsx";
 
 const DAILY_MEMES = [
   { label: "NPC", text: "NPC" },
@@ -291,7 +291,7 @@ export default function OkBoomer() {
           <span style={{ fontSize: "10px", color: "#aaa", fontFamily: "'Georgia', serif", textTransform: "uppercase", letterSpacing: "1px", flexShrink: 0 }}>Today:</span>
           <span style={{ color: "#1a1a2e", fontFamily: "'Georgia', serif", fontWeight: "bold", fontSize: "12px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>"{dailyMeme.label}"</span>
           <button className="daily-btn"
-            onClick={() => { setInputMode("text"); setTextInput(dailyMeme.text); resetAll(); }}
+            onClick={() => { setInputMode("text"); setResponse(null); setError(null); resetImage(); setTextInput(dailyMeme.text); }}
             style={{ background: "#e63946", color: "#fff", border: "none", borderRadius: "2px", padding: "3px 8px", fontFamily: "'Georgia', serif", fontWeight: "bold", fontSize: "10px", cursor: "pointer", whiteSpace: "nowrap", flexShrink: 0, transition: "background 0.15s" }}>
             Go →
           </button>
@@ -487,9 +487,12 @@ export default function OkBoomer() {
                   {!streaming && (
                     <div style={{ background: "#f5f0e8", padding: "10px 16px", borderTop: "2px solid #1a1a2e", display: "flex", justifyContent: "space-between", alignItems: "center", flexShrink: 0 }}>
                       <SupportButtons />
-                      <button onClick={resetAll} style={{ background: "none", border: "1px solid #ccc", padding: "5px 12px", fontFamily: "'Georgia', serif", fontSize: "12px", cursor: "pointer", color: "#555", borderRadius: "2px" }}>
+                      <div style={{ display: "flex", gap: "6px" }}>
+                        <ShareButton resultText={sections.map(s => s.icon + " " + s.label + ": " + s.body).join("\n\n")} title="OkBoomer just explained this for me!" />
+                        <button onClick={resetAll} style={{ background: "none", border: "1px solid #ccc", padding: "5px 12px", fontFamily: "'Georgia', serif", fontSize: "12px", cursor: "pointer", color: "#555", borderRadius: "2px" }}>
                         ← Try Another
                       </button>
+                      </div>
                     </div>
                   )}
                 </div>
