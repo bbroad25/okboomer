@@ -3,7 +3,7 @@ import { useState } from "react";
 // Shared constants — swap YOUR_USERNAME for your Buy Me a Coffee username
 export const BMAC_URL = "https://buymeacoffee.com/YOUR_USERNAME";
 // Your USDC wallet address (Base, Ethereum, or Polygon recommended)
-export const USDC_ADDRESS = "YOUR_WALLET_ADDRESS";
+export const USDC_ADDRESS = "0xDd31dB93082a3A71b98D37ba26230f8734Bd63C3";
 export const USDC_NETWORK = "Base"; // change to match your preferred network
 export const DAILY_LIMIT = 5;
 
