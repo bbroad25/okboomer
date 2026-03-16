@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { useUsageLimit, PaywallMessage, UsageCounter, SupportButtons } from "./usage.jsx";
+import { useUsageLimit, PaywallMessage, UsageCounter, SupportButtons, ShareButton } from "./usage.jsx";
 
 const SMELL_LEVELS = [
   { max: 1,  emoji: "😌", label: "Squeaky Clean",       color: "#34A853", desc: "Totally legit. You can relax." },
@@ -427,9 +427,15 @@ export default function SniffTest() {
                   {!streaming && (
                     <div style={{ background: "#f5f0e8", padding: "10px 16px", borderTop: "2px solid #1a1a2e", display: "flex", justifyContent: "space-between", alignItems: "center", flexShrink: 0 }}>
                       <SupportButtons />
-                      <button onClick={resetAll} style={{ background: "none", border: "1px solid #ccc", padding: "5px 12px", fontFamily: "Georgia, serif", fontSize: "12px", cursor: "pointer", color: "#555", borderRadius: "2px" }}>
-                        ← Sniff Another
-                      </button>
+                      <div style={{ display: "flex", gap: "6px" }}>
+                        <ShareButton
+                          resultText={"Smell Test Score: " + score + "/10 — " + (level ? level.label : "") + "\n\n" + sections.map(s => s.icon + " " + s.label + ": " + s.body).join("\n\n")}
+                          title="OkBoomer Sniff Test results"
+                        />
+                        <button onClick={resetAll} style={{ background: "none", border: "1px solid #ccc", padding: "5px 12px", fontFamily: "Georgia, serif", fontSize: "12px", cursor: "pointer", color: "#555", borderRadius: "2px" }}>
+                          ← Sniff Another
+                        </button>
+                      </div>
                     </div>
                   )}
                 </div>
