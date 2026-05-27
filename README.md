@@ -44,3 +44,5 @@ npm run dev
 - React 18 + Vite
 - Claude claude-sonnet-4-20250514 (vision + text)
 - Zero external UI dependencies
+
+Thanks Boomers!
